@@ -6,6 +6,8 @@ MovementDebug::MovementDebug(void)
 {
 	testbox = NULL;
 	mTextCD = 0.0;
+	lameCounter = 0;
+	testScene = NULL;
 }
 
 MovementDebug::~MovementDebug(void)
@@ -63,17 +65,41 @@ int MovementDebug::GetMove(b2Vec2 *velocity)
 	if (kbState[SDL_SCANCODE_T] && testbox == NULL)
 	{
 		std::cout << "Making Textbox" << std::endl;
-		testbox = new Textbox();
+		testbox = new CTextBox("TEST DATA HERE", "HELLO");
 	}
 
 	if (kbState[SDL_SCANCODE_Y] && testbox != NULL && (Time::currentTime - mTextCD) >= .25)
 	{
 		std::cout << "Advancing text" << std::endl;
 		mTextCD = Time::currentTime;
-		if (!testbox->AdvanceText())
+		
+		std::string text = "TEST ";
+		text.push_back (lameCounter + '0');
+		std::string title = "TITLE ";
+		title.push_back ('0' + lameCounter);
+		lameCounter++;
+
+		testbox->SetText (text);
+		testbox->SetTitle (title);
+	}
+
+	if (kbState[SDL_SCANCODE_G])
+	{
+		std::cout << "Testing cutscene" << std::endl;
+
+		if (testScene == NULL)
+			testScene = new CCutscene ("./res/CutsceneTest2.txt");
+		else
+			std::cout << "Cutscene in progress" << std::endl;
+	}
+
+	if (kbState[SDL_SCANCODE_H])
+	{
+		if (testScene && testScene->Ended())
 		{
-			delete testbox;
-			testbox = NULL;
+			std::cout << "Deleting Cutscene" << std::endl;
+			delete testScene;
+			testScene = NULL;
 		}
 	}
 

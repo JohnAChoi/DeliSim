@@ -3,7 +3,8 @@
 
 #include "Controller.h"
 #include "../Box2D/Box2D.h"
-#include "../UI/Textbox.h"
+#include "../UI/CTextbox.h"
+#include "../engine/dialogue/CCutscene.h"
 #include "../engine/types/floattype.h"
 
 //This class handles inputs from the keyboard
@@ -19,8 +20,10 @@ public:
 private:
 
 	uint8_t const *kbState;
-	Textbox *testbox;
+	CTextBox *testbox;
+	CCutscene *testScene;
 	ftype mTextCD;
+	int lameCounter;
 };
 
 #endif

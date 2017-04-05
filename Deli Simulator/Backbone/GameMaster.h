@@ -1,13 +1,16 @@
 #ifndef _GAME_MASTER_H_
 #define _GAME_MASTER_H_
 
-#include "engine\Behavior.h"
 #include "engine/GameState.h"
 #include "../Objects/Rooms/Room.h"
 #include "../Objects/Characters/PlayerCharacter.h"
 
+class GameGlobals;
+
+//This should probably be called "Scene Changer"
 class GameMaster//: public Engine::Behavior
 {
+	friend class GameGlobals;
 public:
 	enum GameModes 
 	{
@@ -31,15 +34,6 @@ public:
 	
 	GameMaster (Engine::GameState* gs, int gamemode, int startroom);
 	~GameMaster (void);
-
-	//These functions are necessary for the engine to do stuff with them
-	//Is it necessary for the GameMaster to inherit from Behavior?
-	/*void	OnCreate	(int gamemode, int enginemode);
-	void	OnDestroy	(void);
-
-	void	Update		(void);
-	void	LateUpdate	(void);
-	void	Draw		(void);*/
 
 	//Getters because it could be handy
 	int		GetGameMode		(void);

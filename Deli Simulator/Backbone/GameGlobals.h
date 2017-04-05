@@ -1,10 +1,13 @@
 #ifndef _GAME_GLOBALS_H_
 #define _GAME_GLOBALS_H_
 
+#include "engine/GameState.h"
+
 class PlayerCharacter;
 class RenderTest;
+class GameMaster;
 
-struct GameState
+struct MenuState
 {
 	bool mActiveTextbox;
 	bool mActiveMenu;
@@ -16,19 +19,22 @@ class GameGlobals
 {
 public:
 		GameGlobals(void);
+		GameGlobals (GameMaster *gm);
 		~GameGlobals(void);
 
 		//Getters
-		GameState * GetGameState(void);
+		MenuState * GetMenuState(void);
 		PlayerCharacter * GetPlayer(void);
 
 		//Setters
 		void SetPlayer (PlayerCharacter *player);
 
 private:
-	GameState mGameState;
-	PlayerCharacter *pPlayer;
+	MenuState mMenuState;
+	//Engine::GameState* gamestate; Use from GameMaster, I think
+	GameMaster *pGameMaster;
+	//PlayerCharacter *pPlayer;
 	RenderTest *pRenderer;
 };
-extern GameState * pGameState;
+extern GameGlobals* pGameGlobals;
 #endif

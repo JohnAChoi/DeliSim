@@ -1,0 +1,242 @@
+This is a delisim engine cutscene file test.
+If I wrote the code correctly, this should not be loaded into the tree.
+Time to write this shit.
+
+#Begin
+
+Actor 0
+{
+	file: ./res/CharTest1.png
+	name: John
+}
+
+Actor 1
+{
+	name: Cody
+	file: ./res/CharTest2.png
+}
+
+Actor 2
+{
+	name: Josh
+	file: ./res/CharTest3.png
+}
+
+Background
+{
+	file: back0.png
+	file: back1.png
+	file: back2.png
+}
+
+Music
+{
+	file: bgm0.wav
+	file: bgm1.wav
+	file: bgm2.wav
+}
+
+#Scene //Testing comments now
+//Another comment test
+
+//A normal line of dialogue
+Line
+{
+	address: 
+	speaker: 0
+	line: Hey guys, I need to test this stupid thing.
+	audio: line1.wav
+	track: 0
+	background:	0
+	
+	Actor 0
+	{
+		x: 15
+		y: 15
+		spriteindex: 3
+		animation: 0
+	}
+	
+	Actor 1
+	{
+		x: 300
+		y: 60
+		spriteindex: 2
+		animation: 0
+	}
+	
+	Actor 2
+	{
+		x: 600
+		y: 60
+		spriteindex: 7
+		animation: 0
+	}
+}
+
+//A normal line of dialogue
+Line
+{
+	address: 
+	speaker: 1
+	line: Yes, you should really test this shit out.
+	audio: line2.wav
+	track:
+	background:
+	
+	Actor 0
+	{
+		x: 15
+		y: 60
+		spriteindex: -1
+		animation: 0
+	} 
+	
+	Actor 1
+	{
+		x: 300
+		y: 15
+		spriteindex: 2
+		animation: 0
+	}
+	
+	Actor 2
+	{
+		x: 600
+		y: 60
+		spriteindex: 7
+		animation: 0
+	}
+}
+
+//A normal line of dialogue
+Line
+{
+	address: 
+	speaker: 2
+	line: Yeah John, test your code.
+	audio: line3.wav
+	track:
+	background:
+	
+	Actor 1
+	{
+		x: 300
+		y: 15
+		spriteindex: -1
+		animation: 0
+	}
+	
+	Actor 2
+	{
+		x: 600
+		y: 15
+		spriteindex: 7
+		animation: 0
+	}
+}
+
+//A choice to allow for branching in dialogue
+Choice
+{
+	address:
+	speaker: 0
+	line: The question is, do I really want to test this?
+	audio: line4.wav
+	track: 1
+	background: 1
+	
+	Option 0 //Default option should be first
+	{
+		destination: testIt
+		line: I know I should, so I will
+	}
+	
+	Option 1 //Default option should be first
+	{
+		destination: dontTest
+		line: I'm going to be lazy this time
+	}
+	
+	Actor 0
+	{
+		x: 30
+		y: 30
+		spriteindex: 500
+		animation: 0
+	}
+	
+	Actor 1
+	{
+		x: 0
+		y: 0
+		spriteindex: -1
+		animation: 0
+	}
+	
+	Actor 2
+	{
+		x: 0
+		y: 0
+		spriteindex: -1
+		animation: 0
+	}
+}
+
+Line
+{
+	address: testIt
+	speaker: 0
+	line: Fine, I'll test it.
+	audio: line5.wav
+	track:
+	background:
+}
+
+Line
+{
+	address: 
+	speaker: 0
+	line: And so, EHS went on to do great things
+	audio: line6.wav
+	track:
+	background:
+	
+	Actor 1
+	{
+		x: 300
+		y: 60
+		spriteindex: 2
+		animation: 0
+	}
+	
+	Actor 2
+	{
+		x: 600
+		y: 60
+		spriteindex: 7
+		animation: 0
+	}
+}
+
+Line
+{
+	address: dontTest
+	speaker: 0
+	line: No, I'm not testing it. SHIP IT AS IS!
+	audio: line7.wav
+	track:
+	background:
+}
+
+Line
+{
+	address: 
+	speaker: 2
+	line: DAMMIT JOHN
+	audio: line8.wav
+	track:
+	background:
+}
+
+#End
