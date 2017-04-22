@@ -8,18 +8,30 @@ Actor 0
 {
 	file: ./res/CharTest1.png
 	name: John
+	width: 64
+	height: 128
+	row: 5
+	count: 2
 }
 
 Actor 1
 {
 	name: Cody
 	file: ./res/CharTest2.png
+	width: 64
+	height: 128
+	row: 5
+	count: 2
 }
 
 Actor 2
 {
 	name: Josh
 	file: ./res/CharTest3.png
+	width: 64
+	height: 128
+	row: 5
+	count: 2
 }
 
 Background
@@ -53,7 +65,7 @@ Line
 	{
 		x: 15
 		y: 15
-		spriteindex: 3
+		spriteindex: 1
 		animation: 0
 	}
 	
@@ -61,7 +73,7 @@ Line
 	{
 		x: 300
 		y: 60
-		spriteindex: 2
+		spriteindex: 0
 		animation: 0
 	}
 	
@@ -69,7 +81,7 @@ Line
 	{
 		x: 600
 		y: 60
-		spriteindex: 7
+		spriteindex: 0
 		animation: 0
 	}
 }
@@ -88,7 +100,7 @@ Line
 	{
 		x: 15
 		y: 60
-		spriteindex: -1
+		spriteindex: 0
 		animation: 0
 	} 
 	
@@ -96,7 +108,7 @@ Line
 	{
 		x: 300
 		y: 15
-		spriteindex: 2
+		spriteindex: 1
 		animation: 0
 	}
 	
@@ -104,7 +116,7 @@ Line
 	{
 		x: 600
 		y: 60
-		spriteindex: 7
+		spriteindex: 0
 		animation: 0
 	}
 }
@@ -131,7 +143,7 @@ Line
 	{
 		x: 600
 		y: 15
-		spriteindex: 7
+		spriteindex: 1
 		animation: 0
 	}
 }
@@ -162,7 +174,7 @@ Choice
 	{
 		x: 30
 		y: 30
-		spriteindex: 500
+		spriteindex: 1
 		animation: 0
 	}
 	
@@ -206,7 +218,7 @@ Line
 	{
 		x: 300
 		y: 60
-		spriteindex: 2
+		spriteindex: 1
 		animation: 0
 	}
 	
@@ -214,7 +226,7 @@ Line
 	{
 		x: 600
 		y: 60
-		spriteindex: 7
+		spriteindex: 1
 		animation: 0
 	}
 }

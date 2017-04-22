@@ -31,11 +31,20 @@ CCutscene::CCutscene (char *filename)
 		temp->pSprite = LoadTexture (spriteName);
 		//Do not render by default
 		temp->sprIndex = -1;
-		//Specify height and width in the file, someday
-		temp->mPosition.h = 128;
-		temp->mPosition.w = 64;
+		temp->sprCount = (*iter)->count;
+		temp->sprRow = (*iter)->row;
+
+		//Specify height and width in the file, someday: That someday is NOW
+		temp->mPosition.h = (*iter)->height;
+		temp->mPosition.w = (*iter)->width;
 		temp->mPosition.x = 0;
 		temp->mPosition.y = 0;
+
+		temp->mSprPos.h = (*iter)->height;
+		temp->mSprPos.w = (*iter)->width;
+		temp->mSprPos.x = 0;
+		temp->mSprPos.y = 0;
+
 		//Free the memory used to prevent a memory leak
 		free (spriteName);
 
@@ -95,6 +104,13 @@ void CCutscene::UpdateScreen (void)
 		for (auto iter = animations.begin(); iter != animations.end(); iter++)
 		{
 			mActors[(*iter)->index]->sprIndex = (*iter)->sprIndex;
+			
+			if (mActors[(*iter)->index]->sprIndex > mActors[(*iter)->index]->sprCount)
+				mActors[(*iter)->index]->sprIndex = mActors[(*iter)->index]->sprCount; //Should probably throw an error here
+
+			mActors[(*iter)->index]->mSprPos.x = (mActors[(*iter)->index]->sprIndex % mActors[(*iter)->index]->sprRow) * mActors[(*iter)->index]->mSprPos.w;
+			mActors[(*iter)->index]->mSprPos.y = (mActors[(*iter)->index]->sprIndex / mActors[(*iter)->index]->sprRow) * mActors[(*iter)->index]->mSprPos.h;
+
 			mActors[(*iter)->index]->mPosition.x = (*iter)->x;
 			mActors[(*iter)->index]->mPosition.y = (*iter)->y;
 		}
@@ -144,19 +160,25 @@ void CCutscene::Update (void)
 	//Get cursor controls
 	if (kbState[SDL_SCANCODE_S] && !mPrevS)
 	{
-		mChoiceIndex++;
-		mChoiceIndex %= mChoices.size();
-		pTextBox->SetCursorIndex(mChoiceIndex);
+		if (mChoices.size() > 0) //Only check if there are actually choices on screen
+		{
+			mChoiceIndex++;
+			mChoiceIndex %= mChoices.size();
+			pTextBox->SetCursorIndex(mChoiceIndex);
+		}
 		mPrevS = true;
 	}
 	else if (kbState[SDL_SCANCODE_W] && !mPrevW)
 	{
-		mChoiceIndex--;
+		if (mChoices.size() > 0)
+		{
+			mChoiceIndex--;
 		
-		if (mChoiceIndex < 0)
-			mChoiceIndex = mChoices.size() - 1;
+			if (mChoiceIndex < 0)
+				mChoiceIndex = mChoices.size() - 1;
 
-		pTextBox->SetCursorIndex (mChoiceIndex);
+			pTextBox->SetCursorIndex (mChoiceIndex);
+		}
 		mPrevW = true;
 	}
 	else if (kbState[SDL_SCANCODE_F] && !mPrevF)
@@ -169,6 +191,7 @@ void CCutscene::Update (void)
 		}
 		mPrevF = true;
 	}
+
 
 	if (!kbState[SDL_SCANCODE_S])
 		mPrevS = false;
@@ -191,7 +214,7 @@ void CCutscene::Draw (void)
 	for (auto iter = mActors.begin(); iter != mActors.end(); iter++)
 	{
 		if ((*iter)->sprIndex > -1)
-			SDL_RenderCopy((ren)->render, (*iter)->pSprite, NULL, &((*iter)->mPosition));
+			SDL_RenderCopy((ren)->render, (*iter)->pSprite, &((*iter)->mSprPos), &((*iter)->mPosition));
 	}
 }
 

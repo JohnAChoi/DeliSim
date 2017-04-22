@@ -11,7 +11,10 @@ struct sCutsceneActor
 {
 	SDL_Texture *pSprite;
 	SDL_Rect mPosition;
-	int sprIndex;
+	SDL_Rect mSprPos;	//Height/width of sprites is saved as h/w
+	int sprIndex;		//Current sprite index
+	int sprCount;		//Total number of sprites
+	int sprRow;			//Number of sprites per row
 	std::string mName;
 };
 

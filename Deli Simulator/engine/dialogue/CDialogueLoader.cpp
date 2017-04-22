@@ -75,10 +75,14 @@ void CDialogueLoader::MakeActor (void)
 			currentActor->name = value; //Get the name
 		else if (header.compare ("file") == 0)
 			currentActor->file = value; //Get the file name
-		//else if (currentLine.find("}") != std::string::npos)
-		//{
-		//	depth--;
-		//}
+		else if (header.compare ("width") == 0)
+			currentActor->width = std::atoi (value.c_str());
+		else if (header.compare ("height") == 0)
+			currentActor->height = std::atoi (value.c_str());
+		else if (header.compare ("row") == 0)
+			currentActor->row = std::atoi (value.c_str());
+		else if (header.compare ("count") == 0)
+			currentActor->count = std::atoi (value.c_str());
 		//Should probably have an error message in here
 		loaderGetLine();
 	}
@@ -89,17 +93,10 @@ void CDialogueLoader::MakeBackgrounds (void)
 {
 	loaderGetLine(); //Line should be "{"
 
-	//if (currentLine.find ("{") != std::string::npos)
-	//	depth++;
-	//else throw an error or something.
-
 	while (depth == 1)
 	{
 		if (header.compare ("file") == 0)
 			backgroundList.push_back (value);
-		//else if (currentLine.find ("}") != std::string::npos)
-		//	depth--;
-		
 		//Shouldn't be anything else inside. For now
 		
 		loaderGetLine();
@@ -110,16 +107,10 @@ void CDialogueLoader::MakeMusic (void)
 {
 	loaderGetLine(); //Line should be "{"
 
-	//if (currentLine.find("{") != std::string::npos)
-	//	depth++;
-	//else throw an error or something.
-
 	while (depth == 1)
 	{
 		if (header.compare ("file") == 0)
 			musicList.push_back (value);
-		//else if (currentLine.find("}") != std::string::npos)
-		//	depth--;
 
 		//Shouldn't be anything else inside. For now
 
@@ -130,7 +121,6 @@ void CDialogueLoader::MakeMusic (void)
 //Go to the next object and load it up
 void CDialogueLoader::NextObject (void)
 {
-	//loaderGetLine ();
 	animationList.clear();
 	choiceList.clear();
 
@@ -145,8 +135,7 @@ void CDialogueLoader::NextObject (void)
 			sState = DIALOGUE_END;
 			return;
 		}
-		//else if (currentLine.find ("{") != std::string::npos)
-		//	depth++;
+
 		//ERROR MESSAGE OR SOMETHING IS PROBABLY A GOOD IDEA
 
 		loaderGetLine();
@@ -180,11 +169,7 @@ void CDialogueLoader::NextObject (void)
 			LoadAnimation();
 		else if (currentLine.find ("Option")  != std::string::npos)
 			LoadOption();
-		//else if (currentLine.find ("{") != std::string::npos)
-		//	depth++;
-		//else if (currentLine.find ("}") != std::string::npos)
-		//	depth--;
-			
+
 		loaderGetLine();
 	}
 }
@@ -196,10 +181,6 @@ void CDialogueLoader::LoadAnimation (void)
 	pAnimation->index = std::atoi (currentLine.substr (6).c_str());
 
 	loaderGetLine(); //Line should be "{"
-
-	//if (currentLine.find("{") != std::string::npos)
-	//	depth++;
-	//else throw an error or something.
 
 	while (depth == 2 && !pHandle->eof()) //Handle Actors and Choices
 	{
@@ -213,15 +194,6 @@ void CDialogueLoader::LoadAnimation (void)
 		{
 			//TODO: ANIMATION SUPPORT
 		}*/
-		//else if (currentLine.find("}") != std::string::npos) //push any completed entries to their lists
-		//{
-		//	if (pAnimation)
-		//	{
-		//		pAnimation = NULL;
-		//	}
-
-		//	depth--;
-		//}
 
 		loaderGetLine();
 	}
@@ -235,25 +207,12 @@ void CDialogueLoader::LoadOption (void)
 
 	loaderGetLine(); //Line should be "{"
 
-	//if (currentLine.find("{") != std::string::npos)
-	//	depth++;
-	//else throw an error or something.
-
 	while (depth == 2 && !pHandle->eof()) //Handle Actors and Choices
 	{
 		if (header.compare ("destination") == 0)
 			pChoice->dest = value;
 		else if (header.compare ("line") == 0)
 			pChoice->line = value;
-		//else if (currentLine.find("}") != std::string::npos) //push any completed entries to their lists
-		//{
-		//	if (pChoice)
-		//	{
-		//		pChoice = NULL;
-		//	}
-
-		//	depth--;
-		//}
 
 		loaderGetLine();
 	}

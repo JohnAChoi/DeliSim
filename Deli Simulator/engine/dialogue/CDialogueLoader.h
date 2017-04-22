@@ -19,6 +19,10 @@ struct sActor
 {
 	std::string name;
 	std::string file;
+	int width;
+	int height;
+	int row;
+	int count;
 };
 
 struct sActorAnimation
